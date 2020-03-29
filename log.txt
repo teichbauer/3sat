@@ -1,0 +1,4 @@
+2020-03-29
+------------------------------------------------------------------------------
+In this project I will find a way to find sats.
+Tentatively using value-block transfer. Tht means,

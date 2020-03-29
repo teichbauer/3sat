@@ -28,16 +28,20 @@ def get_cover(kdic, v):
 def make_config(fname, base_kname):
     conf = eval(open(fname).read())
     if base_kname == 'C001':
-        return conf
+        return conf, None
     else:
         tx = TransKlauseEngine(conf['kdic'][base_kname], conf['nov'])
         new_conf = {'nov': conf['nov'], 'kdic': {}}
         for k, kl in conf['kdic'].items():
             new_conf['kdic'][k] = tx.trans_klause(kl)
-        return new_conf
+        return new_conf, tx
 
 
-def print_kdic(kdic):
+def print_kdic(kdic, tx=None):
+    if tx:
+        m = 'name-tx: ' + str(tx.bitname_tx)
+        m += ',   value-tx: ' + str(tx.bitvalue_tx)
+        print(m)
     ks = sorted(list(kdic.keys()))
     for k in ks:
         klause_string = str(kdic[k])
@@ -56,8 +60,8 @@ if __name__ == '__main__':
     else:
         name = sys.argv[1].strip()
 
-    conf = make_config('config.py', name)
+    conf, tx = make_config('config.py', name)
     lst = gen_data(conf['nov'], conf['kdic'])
-    print_kdic(conf['kdic'])
+    print_kdic(conf['kdic'], tx)
     print('-'*70)
     print_data(lst)
