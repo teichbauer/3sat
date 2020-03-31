@@ -25,19 +25,24 @@ def get_cover(kdic, v):
     return msg
 
 
-def make_config(fname, base_kname):
-    conf = eval(open(fname).read())
+def make_new_kdic(kdic, base_kname, nov):
     if base_kname == 'C001':
-        return conf, None
+        return kdic, None
     else:
-        tx = TransKlauseEngine(conf['kdic'][base_kname], conf['nov'])
-        new_conf = {'nov': conf['nov'], 'kdic': {}}
-        for k, kl in conf['kdic'].items():
-            new_conf['kdic'][k] = tx.trans_klause(kl)
-        return new_conf, tx
+        tx = TransKlauseEngine(
+            kdic[base_kname],
+            nov,
+            1
+        )
+        new_kdic = {}
+        for k, kl in kdic.items():
+            new_kdic[k] = tx.trans_klause(kl)
+        return new_kdic, tx
 
 
-def print_kdic(kdic, tx=None):
+def print_kdic(base_name, kdic, tx=None):
+    print(f'{base_name}:')
+    print('-'*60)
     if tx:
         m = 'name-tx: ' + str(tx.bitname_tx)
         m += ',   value-tx: ' + str(tx.bitvalue_tx)
@@ -55,13 +60,20 @@ def print_data(lst):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         name = 'C002'
     else:
-        name = sys.argv[1].strip()
+        names = sys.argv[1:]
 
-    conf, tx = make_config('config.py', name)
-    lst = gen_data(conf['nov'], conf['kdic'])
-    print_kdic(conf['kdic'], tx)
-    print('-'*70)
-    print_data(lst)
+    conf0 = eval(open('config.py').read())
+    kdic = conf0['kdic']
+    nov = conf0['nov']
+
+    while len(names) > 0:
+        name = names.pop(0)
+        kdic, tx = make_new_kdic(kdic, name, nov)
+        lst = gen_data(nov, kdic)
+        print_kdic(name, kdic, tx)
+        print('-'*70)
+        print_data(lst)
+        print('='*70)

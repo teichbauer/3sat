@@ -1,2 +1,7 @@
+0.1.2-20200330
+- see log.txt
+  there is a hope that I can do this to hit 2 goals: 
+  -- if Sum(sats) > 0
+  -- get sats
 0.1.1-20200329
 - created github repo for this.

@@ -1,4 +1,17 @@
 2020-03-29
 ------------------------------------------------------------------------------
 In this project I will find a way to find sats.
-Tentatively using value-block transfer. Tht means,
+Tentatively using value-block transfer. Tht means, ...
+
+2020-03-30
+-----------------------------
+gen now takes multiple knames, like
+  python C001 C002 C003
+This will first do C001, then tx(C002) and do output, then based on tx(C002),
+do tx(C003).
+I hope to find a way, when doing tx(C002), cut off C001's lst's last section
+covered by C001, and then in C002's output, cutt off last section covered by
+C002. If that can be done, by the time of doing C003, the space would be 
+reduced. And the first s line with out being covered by C003, will be the
+targeted sats.
+But I am yet not sure how to do this. NBut keep thinking.
