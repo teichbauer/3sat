@@ -60,6 +60,25 @@ def print_data(lst):
 
 
 if __name__ == '__main__':
+    ''' cmd line:
+        python gen.py C001 C002 C003 C004 C005 C006 C007 C008 C009 C010 C011 C012
+        output will be 12 blocks of data:
+        - (64)cover-lines for the original 12 klause-set: S1
+        - (64)cover-lines for Tx(C002): S1  -> S2 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C003): S2  -> S3 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C004): S3  -> S4 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C005): S4  -> S5 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C006): S5  -> S6 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C007): S6  -> S7 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C008): S7  -> S8 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C009): S8  -> S9 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C010): S9  -> S10 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C011): S10 -> S11 : transformed 12 klause-set
+        - (64)cover-lines for Tx(C012): S11 -> S12 : transformed 12 klause-set
+        ----------------------------------------------------------------------
+        in each of the 12 data-blocks, the last 8 lines are 
+        covered by base-klause
+        '''
     if len(sys.argv) < 2:
         name = 'C002'
     else:

@@ -1,7 +1,7 @@
 2020-03-29
 ------------------------------------------------------------------------------
 In this project I will find a way to find sats.
-Tentatively using value-block transfer. Tht means, ...
+Tentatively using value-block transfer. That means, ...
 
 2020-03-30
 -----------------------------
@@ -15,3 +15,43 @@ C002. If that can be done, by the time of doing C003, the space would be
 reduced. And the first s line with out being covered by C003, will be the
 targeted sats.
 But I am yet not sure how to do this. NBut keep thinking.
+
+2020-03-31
+------------------------------------
+cmd line:
+python gen.py C001 C002 C003 C004 C005 C006 C007 C008 C009 C010 C011 C012
+output will be 12 blocks of data:
+- (64)cover-lines for the original 12 klause-set: S1
+- (64)cover-lines for Tx(C002): S1  -> S2 : transformed 12 klause-set
+- (64)cover-lines for Tx(C003): S2  -> S3 : transformed 12 klause-set
+- (64)cover-lines for Tx(C004): S3  -> S4 : transformed 12 klause-set
+- (64)cover-lines for Tx(C005): S4  -> S5 : transformed 12 klause-set
+- (64)cover-lines for Tx(C006): S5  -> S6 : transformed 12 klause-set
+- (64)cover-lines for Tx(C007): S6  -> S7 : transformed 12 klause-set
+- (64)cover-lines for Tx(C008): S7  -> S8 : transformed 12 klause-set
+- (64)cover-lines for Tx(C009): S8  -> S9 : transformed 12 klause-set
+- (64)cover-lines for Tx(C010): S9  -> S10 : transformed 12 klause-set
+- (64)cover-lines for Tx(C011): S10 -> S11 : transformed 12 klause-set
+- (64)cover-lines for Tx(C012): S11 -> S12 : transformed 12 klause-set
+----------------------------------------------------------------------
+in each of the 12 data-blocks, the last 8 lines are 
+covered by base-klause
+It seems that the txs bring much advantage for figuring out the IF:
+Even without tx, or just do tx once, I could use solver1's approach to calculate
+how many UNSATs exit, by that I can know if sats > 0.
+But if I know there exist sta-value(s), how do I fetch them?
+
+2020-03-31
+---------------------
+I have not yet figure out a way, how to utilize the benefit after a Tx, that the
+base klause's coverage block always lies at the last/bottom lines.
+But, I am thinking of using the bit-block pattern, to count from v==0 line
+downwards...
+First, if I know there does exist at least 1 sat, I could use bit-block of the
+klauses, to move down from value==0, value == 1,... or block-wise, which would
+jump, not move, that could do the trick of not being O(2ⁿ).
+
+Or, Could a do the txs with the bottom block cut off, to condense the 
+cover-lines to the bottom, so that the sat(s) lines will be on the top - then
+just pick the first K lines (suppose there exist K sats). That wold be nice!
+

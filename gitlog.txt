@@ -1,3 +1,6 @@
+0.1.4-20200331
+- tried to get covering line's set-dict, but this may not make sense
+- But I do seem to have new thoughts on how to get sats - see log.txt
 0.1.3-20200330
 - add more klauses: C001..C012
 0.1.2-20200330
